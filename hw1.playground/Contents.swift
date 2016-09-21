@@ -22,11 +22,11 @@ class Words {
 //: ### variables the same type? If not, why?
 
 
-//: [EXPLAIN YOUR ANSWER HERE]
+//: [No. The values passed into the init function are optionals while the instance variables are Strings.]
 
 
 //: ## Q2: Variable Types and Function Types
-    func arePalindromes(_ words: [String]) -> Bool {
+    class func arePalindromes(_ words: [String]) -> Bool? {
         let reversedWords = words.map() {String($0.characters.reversed())}
         let numElements = words.count
         
@@ -35,47 +35,48 @@ class Words {
                 return false
             }
         }
+        return nil
     }
 //: ### Why does the compiler dislike the **for loop**? Fix it.
 //: ### What else is wrong with this function? You may have to refer to (but **not**
 //: ### change) the code at the very bottom. Debug the function.
 
 
-//: [EXPLAIN YOUR ANSWER HERE]
+//: [This function was not declared as a class method of Words.]
 
 
 //: ## Q3: More Functions and Object Initialization
-    class func isAnagram() -> Bool {
-        var countLetters : [Character : Int] //Line X
-        var lenA = self.wordA.characters.count
-        var lenB = self.wordB.characters.count
+    func isAnagram() -> Bool? {
+        var countLetters : [Character : Int]? //Line X
+        let lenA = wordA.characters.count
+        let lenB = wordB.characters.count
         
         if lenA != lenB {
             return false
         }
         
-        var arrA = Array(self.wordA.characters)
-        var arrB = Array(self.wordB.characters)
+        var arrA = Array(wordA.characters)
+        var arrB = Array(wordB.characters)
         
         for i in 0...lenA-1 {
             let letter = arrA[i]
-            if let val = countLetters[letter] { //Line Y
-                countLetters[letter] = val + 1
+            if let val = countLetters?[letter] { //Line Y
+                countLetters?[letter] = val + 1
             } else {
-                countLetters[letter] = 1
+                countLetters![letter] = 1
             }
         }
         
         for i in 0...lenB-1 {
             let letter = arrB[i]
-            if let val = countLetters[letter] {
-                countLetters[letter] = val - 1
+            if let val = countLetters?[letter] {
+                countLetters?[letter] = val - 1
             } else {
                 return false
             }
         }
         
-        for (letter, count) in countLetters {
+        for (_, count) in countLetters! {
             if count != 0 {
                 return false
             }
