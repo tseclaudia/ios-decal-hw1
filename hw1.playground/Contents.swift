@@ -26,7 +26,7 @@ class Words {
 
 
 //: ## Q2: Variable Types and Function Types
-    class func arePalindromes(_ words: [String]) -> Bool? {
+    class func arePalindromes(_ words: [String]) -> Bool {
         let reversedWords = words.map() {String($0.characters.reversed())}
         let numElements = words.count
         
@@ -35,19 +35,19 @@ class Words {
                 return false
             }
         }
-        return nil
+        return true
     }
 //: ### Why does the compiler dislike the **for loop**? Fix it.
 //: ### What else is wrong with this function? You may have to refer to (but **not**
 //: ### change) the code at the very bottom. Debug the function.
 
 
-//: [This function was not declared as a class method of Words.]
+//: [This function was not declared as a class method of Words and the function shouldn't have returned nil.]
 
 
 //: ## Q3: More Functions and Object Initialization
-    func isAnagram() -> Bool? {
-        var countLetters : [Character : Int]? //Line X
+    func isAnagram() -> Bool {
+        var countLetters : [Character : Int] = [:] //Line X
         let lenA = wordA.characters.count
         let lenB = wordB.characters.count
         
@@ -60,29 +60,28 @@ class Words {
         
         for i in 0...lenA-1 {
             let letter = arrA[i]
-            if let val = countLetters?[letter] { //Line Y
-                countLetters?[letter] = val + 1
+            if let val = countLetters[letter] { //Line Y
+                countLetters[letter] = val + 1
             } else {
-                countLetters![letter] = 1
+                countLetters[letter] = 1
             }
         }
         
         for i in 0...lenB-1 {
             let letter = arrB[i]
-            if let val = countLetters?[letter] {
-                countLetters?[letter] = val - 1
+            if let val = countLetters[letter] {
+                countLetters[letter] = val - 1
             } else {
                 return false
             }
         }
         
-        for (_, count) in countLetters! {
+        for (_, count) in countLetters {
             if count != 0 {
                 return false
             }
         }
-        
-        return nil
+        return true
     }
 //: ### What is the problem with declaring **countLetters** as we do in **Line X**,
 //: ### and then using it in **Line Y**? Fix it (by only changing **Line X**).
@@ -90,7 +89,7 @@ class Words {
 //: ### change) the code at the very bottom. Debug the function.
 
 
-//: [EXPLAIN YOUR ANSWER HERE]
+//: [isAnagram is supposed to be an instance function and countLetters was never initiated as a dictionary. Also isAnagram was returning nil instead of true at the end.]
     
     
 }
